@@ -12,6 +12,7 @@
  # #2
  group :development do
    gem 'sqlite3'
+   gem 'pry-rails'
  end
 
  group :development, :test do
@@ -34,3 +35,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'bootstrap-sass'
 
 gem 'htmlbeautifier'
+
