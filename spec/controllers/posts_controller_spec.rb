@@ -18,6 +18,18 @@ RSpec.describe PostsController, type: :controller do
       expect(assigns(:posts)).to eq([my_post])
     end
   end
+  describe "#censorship" do
+    context "with censorship" do
+      before do
+        @post = Post.new(title: "Test title", body: "Test body")
+        @post.censor
+      end
+
+      it "should update the title of the post" do
+        @post.title == "SPAM"
+      end
+    end
+  end
 
   # describe "GET #show" do
   #   it "returns http success" do
