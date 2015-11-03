@@ -2,7 +2,7 @@ class Post < ActiveRecord::Base
   has_many :comments
 
   def censor
-    self.update(title: 'SPAM')
+    self.assign_attributes(title: 'SPAM')
   end
 
 end

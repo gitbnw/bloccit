@@ -1,17 +1,15 @@
 include RandomData
 
 # Create Posts
-id = 0
+
 50.times do
 
   Post.create!(
-    id:  id,
     title:  RandomData.random_sentence,
     body:   RandomData.random_paragraph
   )
 
 
-  id +=1
 end
 posts = Post.all
 
