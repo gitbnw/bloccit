@@ -1,11 +1,20 @@
 class User < ActiveRecord::Base
+
+
   before_save { self.email = email.downcase }
+
+  before_save :titleize
+
 
 
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
+  NAME_REGEX =  /\b([A-Z][a-z]*)\s\b([A-Z][a-z]*)/i
 
-  validates :name, length: { minimum: 1, maximum: 100 }, presence: true
+  validates :name,
+    length: { minimum: 1, maximum: 100 },
+    presence: true,
+    format: { with: NAME_REGEX}
 
   validates :password, presence: true, length: { minimum: 6 }, if: "password_digest.nil?"
   validates :password, length: { minimum: 6 }, allow_blank: true
@@ -18,5 +27,11 @@ class User < ActiveRecord::Base
 
 
   has_secure_password
+
+def titleize
+	if name
+		self.name = name.split.map(&:capitalize).join(" ")
+	end
+end
 
 end
