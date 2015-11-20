@@ -1,20 +1,12 @@
  <h2>Sign Up Confirmation</h2>
  <h3>Are you sure these values are correct?</h3>
+ <p>Email: <%= @user[:email] %></p>
+ <p>Name: <%= @user[:name] %></p>
  <div class="row">
-   <div class="col-md-8">
-     <%= form_for @user do |f| %>
-       <div class="form-group">
-         <%= f.label :email %>
-         <%= f.email_field :name, autofocus: true, class: 'form-control', value: @user.email %>
-       </div>
-       <div class="form-group">
-         <%= f.label :name %>
-         <%= f.text_field :name, autofocus: true, class: 'form-control', value: @user.name %>
-       </div>       
-       <div class="form-group">
-         <%= button_to "Yes", {:controller => "users", :action => "create", :params => params}, class: 'btn btn-success' %>
-         <%= button_to "No", {:controller => "users", :action => "cancel"}, :method => 'GET', class: 'btn btn-danger' %>
-       </div>
-     <% end %>
+   <div class="col-md-1">
+     <%= button_to "Yes", {:controller => "users", :action => "create", :user => @user}, class: 'btn btn-success' %>
+   </div>
+   <div class="col-md-1">
+     <%= link_to "No", new_user_path, class: 'btn btn-danger' %>
    </div>
  </div>
