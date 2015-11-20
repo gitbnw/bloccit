@@ -21,5 +21,6 @@ class UsersController < ApplicationController
        flash[:error] = "There was an error creating your account. Please try again."
        render :new
      end
- end    
+ end   
+ 
 end
