@@ -11,7 +11,7 @@ include RandomData
  end
  users = User.all
 
-# Create Topics
+
 15.times do
   Topic.create!(
     name:         RandomData.random_sentence,
@@ -20,7 +20,7 @@ include RandomData
 end
 topics = Topic.all
 
-# Create Posts
+
 50.times do
 
   Post.create!(
@@ -32,7 +32,7 @@ topics = Topic.all
 end
 posts = Post.all
 
-# Create Comments
+
 
 100.times do
   Comment.create!(
@@ -42,9 +42,18 @@ posts = Post.all
   )
 end
 
- user = User.first
- user.update_attributes!(
-   email: 'byron.weiss@gmail.com', # replace this with your personal email
+
+ admin = User.create!(
+   name:     'Admin User',
+   email:    'admin@example.com',
+   password: 'helloworld',
+   role:     'admin'
+ )
+ 
+
+ member = User.create!(
+   name:     'Member User',
+   email:    'member@example.com',
    password: 'helloworld'
  )
  
