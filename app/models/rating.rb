@@ -1,13 +1,13 @@
 class Rating < ActiveRecord::Base
   
-  has_many :topics, :foreign_key => 'rating', :primary_key => 'rating_id'
+  belongs_to :topics, :foreign_key => 'rating', :primary_key => 'severity'
   
-  has_many :posts, :foreign_key => 'rating', :primary_key => 'rating_id'
+  has_many :posts, :foreign_key => 'rating', :primary_key => 'severity'
   
-
+  
   def self.update_rating(rating_enum)
-    
-    Rating.find_by! severity: rating_enum
+
+    Rating.find_or_create_by severity: rating_enum
 
   end
   

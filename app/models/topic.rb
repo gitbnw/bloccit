@@ -6,7 +6,7 @@ class Topic < ActiveRecord::Base
 
    has_many :labels, through: :labelings  
   
-   has_one :rating, :foreign_key => 'rating_id', :primary_key => 'rating'
+   has_one :rating, :foreign_key => 'severity', :primary_key => 'rating'
    
    
    

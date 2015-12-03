@@ -14,12 +14,12 @@ RSpec.describe Rating, type: :model do
 
   end
   
-    # describe ".update_rating" do
-    #   it "takes an int and returns a rating" do       
-    #     rating_int = rating.severity
+    describe ".update_rating" do
+      it "takes an int and returns a rating" do       
+        rating_int = rating.severity
         
-    #     expect(Rating.update_rating(rating_int)).to eq(rating)
-    #   end
-    # end  
+        expect(Rating.update_rating(rating_int)).to eq(rating)
+      end
+    end  
     
 end
