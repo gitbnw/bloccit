@@ -38,3 +38,5 @@ gem 'bootstrap-sass'
 gem 'htmlbeautifier'
 
 gem 'bcrypt'
+
+ gem 'figaro', '1.0'
