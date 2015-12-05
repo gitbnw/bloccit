@@ -6,24 +6,27 @@ class Post < ActiveRecord::Base
   has_many :labelings, as: :labelable
   has_many :labels, through: :labelings
   has_many :favorites, dependent: :destroy
-  
+
+  after_create :add_favorite
+
   default_scope { order('rank DESC') }
+
 
   validates :title, length: { minimum: 5 }, presence: true
   validates :body, length: { minimum: 20 }, presence: true
   validates :topic, presence: true
   validates :user, presence: true
-  
+
    def up_votes
 
      votes.where(value: 1).count
    end
- 
+
    def down_votes
 
      votes.where(value: -1).count
    end
- 
+
    def points
 
      votes.sum(:value)
@@ -34,5 +37,10 @@ class Post < ActiveRecord::Base
      new_rank = points + age_in_days
      update_attribute(:rank, new_rank)
    end
-   
+
+   def add_favorite
+     Favorite.new(post: self, user: self.user)
+     FavoriteMailer.new_post(self.topic, self, self.user).deliver_now
+   end
+
 end
