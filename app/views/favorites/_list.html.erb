@@ -1,0 +1,15 @@
+<%= content_tag :div, class: 'media', id: "favorite-#{favorite.id}" do %>
+   <div class="media-body">
+     <small>
+       <% avatar_url = favorite.post.user.avatar_url(32) %>
+       <% if avatar_url %>
+         <div class="media-left">
+           <%= image_tag avatar_url, class: 'media-object' %>
+         </div>
+       <% end %>
+       <%= favorite.post.title  %>
+       <%= favorite.post.votes.count %> Votes
+       <%= favorite.post.comments.count %> Comments
+     </small>
+   </div>
+ <% end %>
