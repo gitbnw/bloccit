@@ -1,12 +1,22 @@
 class User < ActiveRecord::Base
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> cp-45-pubpro
    has_many :posts, dependent: :destroy
    has_many :comments, dependent: :destroy
    has_many :votes, dependent: :destroy
    has_many :favorites, dependent: :destroy
+<<<<<<< HEAD
  
  enum role: [:member, :admin]
  
+=======
+
+ enum role: [:member, :admin]
+
+>>>>>>> cp-45-pubpro
   before_save { self.email = email.downcase }
   before_save { self.role ||= :member }
 
@@ -27,10 +37,23 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
+<<<<<<< HEAD
   
   
+=======
+
+
+>>>>>>> cp-45-pubpro
    def favorite_for(post)
      favorites.where(post_id: post.id).first
    end
 
+<<<<<<< HEAD
+=======
+   def avatar_url(size)
+     gravatar_id = Digest::MD5::hexdigest(self.email).downcase
+     "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
+   end
+
+>>>>>>> cp-45-pubpro
 end

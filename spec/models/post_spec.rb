@@ -3,9 +3,20 @@ include RandomData
 
 RSpec.describe Post, type: :model do
 
-  let(:topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
+  let(:topic) { create(:topic) }
+  let(:user) { create(:user) }
+  let(:post) { create(:post) }
+  
+  it { should have_many(:labelings) }
+  it { should have_many(:labels).through(:labelings) }
 
+<<<<<<< HEAD
   let(:user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld") }
+=======
+  it { should have_many(:comments) }
+  it { should have_many(:votes) }
+  it { should have_many(:favorites) }
+>>>>>>> cp-45-pubpro
 
   let(:post) { topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user) }
 
@@ -44,14 +55,22 @@ RSpec.describe Post, type: :model do
        @up_votes = post.votes.where(value: 1).count
        @down_votes = post.votes.where(value: -1).count
      end
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> cp-45-pubpro
 
      describe "#up_votes" do
        it "counts the number of votes with value = 1" do
          expect( post.up_votes ).to eq(@up_votes)
        end
      end
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> cp-45-pubpro
 
      describe "#down_votes" do
        it "counts the number of votes with value = -1" do
@@ -70,19 +89,33 @@ RSpec.describe Post, type: :model do
          post.update_rank
          expect(post.rank).to eq(post.points + (post.created_at - Time.new(1970,1,1)) / 1.day.seconds)
        end
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> cp-45-pubpro
        it "updates the rank when an up vote is created" do
          old_rank = post.rank
          post.votes.create!(value: 1)
          expect(post.rank).to eq(old_rank + 1)
        end
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> cp-45-pubpro
        it "updates the rank when a down vote is created" do
          old_rank = post.rank
          post.votes.create!(value: -1)
          expect(post.rank).to eq(old_rank - 1)
        end
+<<<<<<< HEAD
      end 
      
    end  
+=======
+     end
+
+   end
+>>>>>>> cp-45-pubpro
 end

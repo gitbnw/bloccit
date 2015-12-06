@@ -3,7 +3,11 @@ include RandomData
 include SessionsHelper
 
 RSpec.describe TopicsController, type: :controller do
+<<<<<<< HEAD
   let (:my_topic) { Topic.create!(name:  RandomData.random_sentence, description:   RandomData.random_paragraph) }
+=======
+  let(:my_topic) { create(:topic) }
+>>>>>>> cp-45-pubpro
 
   context "guest" do
     describe "GET index" do
@@ -272,4 +276,8 @@ RSpec.describe TopicsController, type: :controller do
       end
     end
   end
+<<<<<<< HEAD
 end
+=======
+end
+>>>>>>> cp-45-pubpro
