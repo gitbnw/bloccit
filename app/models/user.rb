@@ -1,12 +1,12 @@
 class User < ActiveRecord::Base
-  
+
    has_many :posts, dependent: :destroy
    has_many :comments, dependent: :destroy
    has_many :votes, dependent: :destroy
    has_many :favorites, dependent: :destroy
- 
+
  enum role: [:member, :admin]
- 
+
   before_save { self.email = email.downcase }
   before_save { self.role ||= :member }
 
@@ -27,10 +27,15 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  
-  
+
+
    def favorite_for(post)
      favorites.where(post_id: post.id).first
+   end
+
+   def avatar_url(size)
+     gravatar_id = Digest::MD5::hexdigest(self.email).downcase
+     "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
    end
 
 end
