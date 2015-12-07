@@ -8,7 +8,9 @@ class TopicsController < ApplicationController
     @topics = Topic.all
   end
   def show
+    
     @topic = Topic.find(params[:id])
+    
   end
   def new
     @topic = Topic.new
@@ -20,6 +22,8 @@ class TopicsController < ApplicationController
       @topic.labels = Label.update_labels(params[:topic][:labels])
       
       @topic.ratings = Rating.update_rating(params[:topic][:rating])
+      @topic.save
+      
       
       redirect_to @topic, notice: "Topic was saved successfully."
     else
@@ -30,18 +34,21 @@ class TopicsController < ApplicationController
 
   def edit
     @topic = Topic.find(params[:id])
+    
   end
   def update
     @topic = Topic.find(params[:id])
 
     @topic.assign_attributes(topic_params)
-
+    
     if @topic.save
       @topic.labels = Label.update_labels(params[:topic][:labels])
-
+      puts params[:topic][:rating]
+      puts Rating.update_rating(params[:topic][:rating]).inspect
       @topic.rating = Rating.update_rating(params[:topic][:rating])
-      
+
       flash[:notice] = "Topic was updated."
+      # @topic.save
       redirect_to @topic
     else
       flash[:error] = "Error saving topic. Please try again."

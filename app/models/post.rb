@@ -2,7 +2,7 @@ class Post < ActiveRecord::Base
   belongs_to :topic
   belongs_to :user
 
-  has_one :rating #, foreign_key: "severity"
+  belongs_to :rating #, foreign_key: "severity"
 
   has_many :comments, dependent: :destroy
   has_many :labelings, as: :labelable

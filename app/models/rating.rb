@@ -5,6 +5,8 @@ class Rating < ActiveRecord::Base
 
   enum severity: [:PG, :PG13, :R]
 
+  validates :severity, presence: true
+
   def self.update_rating(rating_enum)
     Rating.find_or_create_by severity: Rating.severities[rating_enum]
   end
