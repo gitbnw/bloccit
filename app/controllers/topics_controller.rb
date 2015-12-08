@@ -11,10 +11,10 @@ class TopicsController < ApplicationController
     @topic = Topic.find(params[:id])
 
      unless @topic.public || current_user
-       flash[:alert] = "You must be signed in to view private topics."
-       redirect_to root_url, notice: "Hello world"
- 
+       flash.now[:alert] = "You must be signed in to view private topics."
+       redirect_to new_session_path
      end
+
      
   end
   def new
