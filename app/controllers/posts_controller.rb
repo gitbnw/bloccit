@@ -14,15 +14,17 @@ class PostsController < ApplicationController
   end
 
   def create
-    
+
     @topic = Topic.find(params[:topic_id])
     @post = @topic.posts.build(post_params)
     @post.user = current_user
 
+    @post.labels = Label.update_labels(params[:post][:labels])
+    @post.rating = Rating.update_rating(params[:post][:rating])
+
     if @post.save
-      @post.labels = Label.update_labels(params[:post][:labels])
-      @post.rating = Rating.update_rating(params[:post][:rating])
-      @post.save
+
+
       flash[:notice] = 'Post was saved.'
       redirect_to [@topic, @post]
     else
@@ -40,10 +42,12 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.assign_attributes(post_params)
 
+    @post.labels = Label.update_labels(params[:post][:labels])
+    @post.rating = Rating.update_rating(params[:post][:rating])
+
     if @post.save
-      @post.labels = Label.update_labels(params[:post][:labels])
-      @post.rating = Rating.update_rating(params[:post][:rating])
-      @post.save
+
+
       flash[:notice] = "Post was updated."
       redirect_to [@post.topic, @post]
     else
@@ -66,11 +70,11 @@ class PostsController < ApplicationController
   end
 
    private
- 
+
    def post_params
      params.require(:post).permit(:title, :body)
    end
-   
+
    def authorize_user
      post = Post.find(params[:id])
 
@@ -78,6 +82,6 @@ class PostsController < ApplicationController
        flash[:error] = "You must be an admin to do that."
        redirect_to [post.topic, post]
      end
-   end 
-   
+   end
+
 end

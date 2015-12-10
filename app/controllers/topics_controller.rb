@@ -1,16 +1,16 @@
 class TopicsController < ApplicationController
-  
+
    before_action :require_sign_in, except: [:index, :show]
 
    before_action :authorize_user, except: [:index, :show]
-  
+
   def index
     @topics = Topic.all
   end
   def show
-    
+
     @topic = Topic.find(params[:id])
-    
+
   end
   def new
     @topic = Topic.new
@@ -18,13 +18,12 @@ class TopicsController < ApplicationController
   def create
     @topic = Topic.new(topic_params)
 
+    @topic.labels = Label.update_labels(params[:topic][:labels])
+
+    @topic.rating = Rating.update_rating(params[:topic][:rating])
+
     if @topic.save
-      @topic.labels = Label.update_labels(params[:topic][:labels])
-      
-      @topic.ratings = Rating.update_rating(params[:topic][:rating])
-      @topic.save
-      
-      
+
       redirect_to @topic, notice: "Topic was saved successfully."
     else
       flash[:error] = "Error creating topic. Please try again."
@@ -34,20 +33,22 @@ class TopicsController < ApplicationController
 
   def edit
     @topic = Topic.find(params[:id])
-    
+
   end
   def update
     @topic = Topic.find(params[:id])
 
     @topic.assign_attributes(topic_params)
-    
-    if @topic.save
-      @topic.labels = Label.update_labels(params[:topic][:labels])
 
-      @topic.rating = Rating.update_rating(params[:topic][:rating])
+    @topic.labels = Label.update_labels(params[:topic][:labels])
+
+    @topic.rating = Rating.update_rating(params[:topic][:rating])
+
+    if @topic.save
+
 
       flash[:notice] = "Topic was updated."
-     @topic.save
+
       redirect_to @topic
     else
       flash[:error] = "Error saving topic. Please try again."
@@ -66,9 +67,9 @@ class TopicsController < ApplicationController
        render :show
      end
    end
-   
+
    private
- 
+
    def topic_params
      params.require(:topic).permit(:name, :description, :public)
    end
@@ -79,5 +80,5 @@ class TopicsController < ApplicationController
        redirect_to topics_path
      end
    end
-   
+
 end
